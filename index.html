@@ -1,882 +1,231 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/z6yzLKHMY7oyCiP2JqiqGJWbwRjOwuZT/825ae7e5-7ff7-4672-aa0c-1ae424a104b2/files/">
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ProspectAI — Lead Generation Engine</title>
-<style>
-  :root {
-    --bg: #07090f;
-    --surface: #0e1220;
-    --card: #131929;
-    --card2: #1a2035;
-    --border: #1e2a45;
-    --accent: #4f6ef7;
-    --accent2: #7c3aed;
-    --hot: #ff4d4d;
-    --warm: #f59e0b;
-    --cold: #3b82f6;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --green: #22c55e;
-    --red: #ef4444;
-    --purple: #a78bfa;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; min-height:100vh; }
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ProspectAI — Lead Generation Engine</title>
+    <style>
+        :root {
+            --bg: #07090f; --surface: #0e1220; --card: #131929; --card2: #1a2035;
+            --border: #1e2a45; --accent: #4f6ef7; --accent2: #7c3aed; --hot: #ff4d4d;
+            --warm: #f59e0b; --cold: #3b82f6; --text: #e2e8f0; --muted: #64748b;
+            --green: #22c55e; --red: #ef4444; --purple: #a78bfa;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; min-height:100vh; overflow-x: hidden; }
 
-  /* ── NAV ── */
-  nav {
-    background:var(--surface); border-bottom:1px solid var(--border);
-    padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
-    height:62px; position:sticky; top:0; z-index:100; backdrop-filter:blur(8px);
-  }
-  .logo { display:flex; align-items:center; gap:.6rem; font-weight:800; font-size:1.15rem; letter-spacing:-.01em; }
-  .logo span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .logo-pulse { width:9px; height:9px; background:var(--green); border-radius:50%; box-shadow:0 0 8px var(--green); animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
-  .nav-right { display:flex; align-items:center; gap:.8rem; }
-  .nav-pill { background:var(--card2); border:1px solid var(--border); color:var(--muted); font-size:.72rem; padding:.25rem .7rem; border-radius:20px; font-weight:600; }
-  .nav-pill.live { border-color:#22c55e44; color:var(--green); background:#22c55e11; }
+        /* NAV */
+        nav {
+            background:var(--surface); border-bottom:1px solid var(--border);
+            padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
+            height:62px; position:sticky; top:0; z-index:100; backdrop-filter:blur(8px);
+        }
+        .logo { display:flex; align-items:center; gap:.6rem; font-weight:800; font-size:1.15rem; }
+        .logo span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .logo-pulse { width:9px; height:9px; background:var(--green); border-radius:50%; box-shadow:0 0 8px var(--green); animation:pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
 
-  /* ── HERO ── */
-  .hero { text-align:center; padding:3.5rem 1rem 2.5rem; }
-  .hero-badge { display:inline-flex; align-items:center; gap:.5rem; background:var(--card2); border:1px solid var(--border); border-radius:20px; padding:.3rem .9rem; font-size:.76rem; color:var(--muted); margin-bottom:1.2rem; }
-  .hero h1 { font-size:2.4rem; font-weight:900; letter-spacing:-.02em; line-height:1.1; margin-bottom:.7rem; }
-  .hero h1 span { background:linear-gradient(135deg,#6366f1,#a78bfa,#38bdf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .hero p { color:var(--muted); font-size:1rem; max-width:500px; margin:0 auto 1.5rem; line-height:1.6; }
+        /* HERO */
+        .hero { text-align:center; padding:3.5rem 1rem 2.5rem; }
+        .hero h1 { font-size:2.4rem; font-weight:900; letter-spacing:-.02em; margin-bottom:.7rem; }
+        .hero h1 span { background:linear-gradient(135deg,#6366f1,#a78bfa,#38bdf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .hero p { color:var(--muted); font-size:1rem; max-width:500px; margin:0 auto 1.5rem; }
 
-  /* ── PIPELINE STEPS (visual) ── */
-  .pipeline-wrap { max-width:900px; margin:0 auto 2.5rem; padding:0 1rem; }
-  .pipeline { display:grid; grid-template-columns:repeat(7,1fr); gap:0; background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
-  .pipe-step { padding:.7rem .5rem; text-align:center; border-right:1px solid var(--border); position:relative; }
-  .pipe-step:last-child { border-right:none; }
-  .pipe-num { font-size:.65rem; color:var(--muted); font-weight:700; margin-bottom:.25rem; text-transform:uppercase; letter-spacing:.05em; }
-  .pipe-icon { font-size:1.1rem; margin-bottom:.2rem; }
-  .pipe-label { font-size:.68rem; color:var(--muted); line-height:1.3; }
-  .pipe-step.active-step .pipe-num { color:var(--accent); }
-  .pipe-step.active-step .pipe-label { color:var(--text); }
-  .pipe-step.done-step { background:rgba(34,197,94,.06); }
-  .pipe-step.done-step .pipe-label { color:var(--green); }
+        /* PIPELINE */
+        .pipeline-wrap { max-width:900px; margin:0 auto 2.5rem; padding:0 1rem; }
+        .pipeline { display:grid; grid-template-columns:repeat(7,1fr); background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+        .pipe-step { padding:.7rem .5rem; text-align:center; border-right:1px solid var(--border); opacity: 0.4; transition: 0.3s; }
+        .pipe-step.active-step { opacity: 1; background: rgba(79, 110, 247, 0.1); }
+        .pipe-step.done-step { opacity: 1; color: var(--green); }
+        .pipe-num { font-size:.65rem; font-weight:700; margin-bottom:.25rem; }
+        .pipe-icon { font-size:1.1rem; }
+        .pipe-label { font-size:.68rem; line-height:1.3; }
 
-  /* ── FORM ── */
-  .form-wrap { max-width:800px; margin:0 auto 2.5rem; padding:0 1rem; }
-  .form-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem; box-shadow:0 8px 40px rgba(0,0,0,.5); }
-  .form-title { font-size:.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; font-weight:700; margin-bottom:1.2rem; display:flex; align-items:center; gap:.5rem; }
-  .form-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-bottom:1.2rem; }
-  .form-group { display:flex; flex-direction:column; gap:.4rem; }
-  .form-group label { font-size:.74rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
-  .form-group input, .form-group select {
-    background:var(--card); border:1px solid var(--border); border-radius:9px;
-    color:var(--text); padding:.7rem 1rem; font-size:.92rem; outline:none; transition:border .2s, box-shadow .2s;
-  }
-  .form-group input:focus, .form-group select:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(79,110,247,.15); }
-  .form-group select option { background:var(--card); }
-  .btn-prospect {
-    width:100%; background:linear-gradient(135deg,var(--accent),var(--accent2));
-    border:none; border-radius:11px; color:#fff; font-size:1rem; font-weight:800;
-    padding:.9rem; cursor:pointer; transition:opacity .2s, transform .15s;
-    display:flex; align-items:center; justify-content:center; gap:.6rem; letter-spacing:.01em;
-  }
-  .btn-prospect:hover { opacity:.9; transform:translateY(-2px); box-shadow:0 8px 24px rgba(79,110,247,.35); }
+        /* FORM */
+        .form-wrap { max-width:800px; margin:0 auto 2.5rem; padding:0 1rem; }
+        .form-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem; box-shadow:0 8px 40px rgba(0,0,0,.5); }
+        .form-grid { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1.2rem; }
+        .form-group { display:flex; flex-direction:column; gap:.4rem; }
+        .form-group label { font-size:.74rem; color:var(--muted); text-transform:uppercase; font-weight:700; }
+        .form-group input { background:var(--card); border:1px solid var(--border); border-radius:9px; color:var(--text); padding:.7rem 1rem; outline:none; }
+        .btn-prospect { width:100%; background:linear-gradient(135deg,var(--accent),var(--accent2)); border:none; border-radius:11px; color:#fff; font-size:1rem; font-weight:800; padding:.9rem; cursor:pointer; transition: 0.2s; }
+        .btn-prospect:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-  /* ── LOADING ── */
-  #loading { display:none; max-width:800px; margin:0 auto 2rem; padding:0 1rem; }
-  .loading-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem; }
-  .loading-header { display:flex; align-items:center; gap:.7rem; margin-bottom:1.5rem; }
-  .loading-spinner { width:22px; height:22px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
-  @keyframes spin { to{transform:rotate(360deg)} }
-  .loading-title { font-weight:700; font-size:1rem; }
-  .loading-sub { font-size:.8rem; color:var(--muted); margin-top:.1rem; }
-  .pipeline-progress { display:flex; flex-direction:column; gap:.6rem; }
-  .prog-step { display:flex; align-items:center; gap:.9rem; padding:.6rem .9rem; border-radius:9px; border:1px solid transparent; transition:all .3s; }
-  .prog-step.pending { color:var(--muted); }
-  .prog-step.running { background:rgba(79,110,247,.08); border-color:rgba(79,110,247,.3); color:var(--text); }
-  .prog-step.done    { background:rgba(34,197,94,.06); border-color:rgba(34,197,94,.25); color:var(--green); }
-  .prog-step.skip    { background:rgba(239,68,68,.06); border-color:rgba(239,68,68,.2); color:var(--red); opacity:.7; }
-  .prog-icon { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:.8rem; flex-shrink:0; }
-  .prog-icon.p { background:var(--card2); color:var(--muted); }
-  .prog-icon.r { background:rgba(79,110,247,.2); color:var(--accent); animation:spin .7s linear infinite; border-radius:50%; border:2px solid var(--accent); border-top-color:transparent; }
-  .prog-icon.d { background:rgba(34,197,94,.2); color:var(--green); }
-  .prog-icon.s { background:rgba(239,68,68,.15); color:var(--red); }
-  .prog-step-text { flex:1; }
-  .prog-step-label { font-size:.86rem; font-weight:600; }
-  .prog-step-desc { font-size:.75rem; color:var(--muted); margin-top:.05rem; }
-  .prog-step.running .prog-step-desc { color:inherit; opacity:.8; }
-  .prog-count { font-size:.75rem; font-weight:700; }
-  .prog-bar-wrap { margin-top:1.4rem; }
-  .prog-bar-label { display:flex; justify-content:space-between; font-size:.75rem; color:var(--muted); margin-bottom:.4rem; }
-  .prog-bar { height:5px; background:var(--border); border-radius:4px; overflow:hidden; }
-  .prog-bar-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:4px; width:0%; transition:width .7s ease; }
-  .discarded-note { margin-top:1rem; padding:.6rem 1rem; background:rgba(239,68,68,.07); border:1px solid rgba(239,68,68,.2); border-radius:8px; font-size:.8rem; color:#fca5a5; }
+        /* LOADING */
+        #loading { display:none; max-width:800px; margin:0 auto 2rem; padding:0 1rem; }
+        .loading-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem; }
+        .prog-step { display:flex; align-items:center; gap:.9rem; padding:.6rem .9rem; border-radius:9px; color: var(--muted); }
+        .prog-step.running { color: var(--text); background: rgba(79,110,247,0.1); }
+        .prog-step.done { color: var(--green); }
 
-  /* ── RESULTS ── */
-  #results { display:none; max-width:1150px; margin:0 auto; padding:0 1rem 4rem; }
+        /* RESULTS */
+        #results { display:none; max-width:1150px; margin:0 auto; padding:0 1rem 4rem; }
+        .leads-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.2rem; }
+        .lead-card { background:var(--card); border:1px solid var(--border); border-radius:15px; overflow:hidden; transition: 0.2s; position: relative; }
+        .lead-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card-accent { height: 4px; width: 100%; }
+        .card-body { padding: 1.25rem; }
+        .score-num { font-weight: 900; color: var(--accent); }
+        .btn-copy { width: 100%; margin-top: 1rem; background: var(--card2); border: 1px solid var(--border); color: white; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-copy:hover { background: var(--accent); }
 
-  /* ── FILTER BAR ── */
-  .filter-bar {
-    display:flex; align-items:center; gap:.7rem; margin-bottom:1.5rem; flex-wrap:wrap;
-    background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:.8rem 1.1rem;
-  }
-  .filter-label { font-size:.75rem; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
-  .divider { width:1px; height:18px; background:var(--border); }
-  .filter-btn { background:var(--card); border:1px solid var(--border); color:var(--muted); padding:.32rem .85rem; border-radius:20px; font-size:.8rem; cursor:pointer; transition:all .2s; font-weight:600; }
-  .filter-btn:hover { border-color:var(--accent); color:var(--text); }
-  .filter-btn.hot.active  { border-color:var(--hot);  color:var(--hot);  background:rgba(255,77,77,.08); }
-  .filter-btn.warm.active { border-color:var(--warm); color:var(--warm); background:rgba(245,158,11,.08); }
-  .filter-btn.cold.active { border-color:var(--cold); color:var(--cold); background:rgba(59,130,246,.08); }
-  .filter-btn.active      { border-color:var(--accent); color:var(--accent); background:rgba(79,110,247,.08); }
-  .filter-spacer { flex:1; }
-  .export-btn { background:transparent; border:1px solid var(--border); color:var(--text); padding:.35rem 1rem; border-radius:20px; font-size:.8rem; cursor:pointer; transition:all .2s; font-weight:700; display:flex; align-items:center; gap:.4rem; }
-  .export-btn:hover { border-color:var(--green); color:var(--green); }
+        /* MODAL */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:200; align-items:center; justify-content:center; }
+        .modal-overlay.open { display:flex; }
+        .modal { background:var(--surface); padding:2rem; border-radius:18px; max-width:550px; width:95%; border: 1px solid var(--border); }
 
-  /* ── STATS ── */
-  .stats-bar { display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-bottom:1.5rem; }
-  .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:1rem 1.2rem; }
-  .stat-card .num { font-size:1.75rem; font-weight:900; }
-  .stat-card .lbl { font-size:.72rem; color:var(--muted); margin-top:.15rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
-  .hot-num  { color:var(--hot);  }
-  .warm-num { color:var(--warm); }
-  .cold-num { color:var(--cold); }
-  .disc-num { color:var(--muted); }
-
-  /* ── LEADS GRID ── */
-  .leads-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.2rem; }
-
-  /* ── LEAD CARD ── */
-  .lead-card { background:var(--card); border:1px solid var(--border); border-radius:15px; overflow:hidden; transition:transform .2s, box-shadow .2s; }
-  .lead-card:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.45); }
-  .card-accent-bar { height:3px; }
-  .bar-hot  { background:linear-gradient(90deg,#ff4d4d,#ff8c42); }
-  .bar-warm { background:linear-gradient(90deg,#f59e0b,#fcd34d); }
-  .bar-cold { background:linear-gradient(90deg,#3b82f6,#60a5fa); }
-  .card-body { padding:1.25rem; }
-
-  /* card header */
-  .card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem; gap:.5rem; }
-  .biz-avatar { width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.95rem; color:#fff; flex-shrink:0; }
-  .biz-info { flex:1; }
-  .biz-name { font-size:.97rem; font-weight:800; line-height:1.2; }
-  .biz-city { font-size:.75rem; color:var(--muted); margin-top:.18rem; }
-  .badge { font-size:.7rem; font-weight:800; padding:.22rem .65rem; border-radius:20px; white-space:nowrap; flex-shrink:0; }
-  .badge-hot  { background:#ff4d4d18; color:var(--hot);  border:1px solid #ff4d4d40; }
-  .badge-warm { background:#f59e0b18; color:var(--warm); border:1px solid #f59e0b40; }
-  .badge-cold { background:#3b82f618; color:var(--cold); border:1px solid #3b82f640; }
-
-  /* sources */
-  .source-row { display:flex; gap:.45rem; margin-bottom:.9rem; flex-wrap:wrap; }
-  .src-tag { font-size:.68rem; padding:.18rem .55rem; border-radius:5px; font-weight:600; display:flex; align-items:center; gap:.25rem; }
-  .src-gmaps { background:rgba(234,67,53,.1);  color:#ea4335; border:1px solid rgba(234,67,53,.25); }
-  .src-yelp  { background:rgba(196,18,0,.1);   color:#c41200; border:1px solid rgba(196,18,0,.2); }
-  .src-yp    { background:rgba(255,211,0,.1);  color:#d4a500; border:1px solid rgba(255,211,0,.25); }
-  .src-ig    { background:rgba(193,53,132,.1); color:#c13584; border:1px solid rgba(193,53,132,.25); }
-
-  /* info rows */
-  .card-info { display:flex; flex-direction:column; gap:.4rem; margin-bottom:.9rem; }
-  .info-row { display:flex; align-items:center; gap:.5rem; font-size:.81rem; }
-  .info-row .lk { color:var(--muted); font-size:.75rem; min-width:16px; }
-  .info-row a { color:var(--accent); text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px; display:inline-block; }
-  .info-row a:hover { text-decoration:underline; }
-  .tag-no  { color:var(--red);   font-weight:700; }
-  .tag-yes { color:var(--green); font-weight:700; }
-  .contact-chip {
-    display:inline-flex; align-items:center; gap:.3rem; font-size:.75rem; font-weight:600;
-    padding:.18rem .6rem; border-radius:6px; background:var(--card2); border:1px solid var(--border); color:var(--text);
-  }
-  .contact-chip.phone { border-color:rgba(34,197,94,.3); color:var(--green); background:rgba(34,197,94,.07); }
-  .contact-chip.email { border-color:rgba(79,110,247,.3); color:var(--accent); background:rgba(79,110,247,.07); }
-  .contact-chip.ig    { border-color:rgba(193,53,132,.3); color:#c13584; background:rgba(193,53,132,.07); }
-  .contacts-row { display:flex; gap:.4rem; flex-wrap:wrap; margin-bottom:.9rem; }
-
-  /* score */
-  .score-row { display:flex; align-items:center; gap:.9rem; margin-bottom:.9rem; }
-  .score-label { font-size:.72rem; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.04em; min-width:42px; }
-  .score-track { flex:1; height:5px; background:var(--border); border-radius:4px; overflow:hidden; }
-  .score-fill { height:100%; border-radius:4px; transition:width 1s ease; }
-  .fill-hot  { background:linear-gradient(90deg,#ff4d4d,#ff8c42); }
-  .fill-warm { background:linear-gradient(90deg,#f59e0b,#fcd34d); }
-  .fill-cold { background:linear-gradient(90deg,#3b82f6,#60a5fa); }
-  .score-num { font-size:.85rem; font-weight:900; min-width:38px; text-align:right; }
-
-  /* signal tags */
-  .signals-row { display:flex; gap:.4rem; flex-wrap:wrap; margin-bottom:.9rem; }
-  .sig-tag { font-size:.7rem; padding:.2rem .5rem; border-radius:6px; background:var(--surface); border:1px solid var(--border); color:var(--muted); font-weight:600; }
-  .sig-tag.good   { border-color:#7c3aed44; color:var(--purple); background:#7c3aed0e; }
-  .sig-tag.ok     { border-color:#f59e0b33; color:var(--warm);   background:#f59e0b0e; }
-  .sig-tag.bad    { border-color:#ef444433; color:var(--red);    background:#ef44440e; }
-  .sig-tag.promo  { border-color:#22c55e44; color:var(--green);  background:#22c55e0e; }
-
-  /* insight */
-  .insight-box {
-    background:var(--surface); border:1px solid var(--border); border-radius:9px;
-    padding:.7rem .9rem; font-size:.79rem; color:#94a3b8; margin-bottom:1rem; line-height:1.55;
-  }
-  .insight-box strong { color:var(--text); }
-
-  /* actions */
-  .card-actions { display:flex; gap:.6rem; }
-  .btn-detail { flex:1; background:transparent; border:1px solid var(--border); color:var(--text); padding:.52rem; border-radius:9px; cursor:pointer; font-size:.8rem; font-weight:700; transition:all .2s; }
-  .btn-detail:hover { border-color:var(--accent); color:var(--accent); }
-  .btn-copy { flex:1.3; background:linear-gradient(135deg,var(--accent),var(--accent2)); border:none; color:#fff; padding:.52rem; border-radius:9px; cursor:pointer; font-size:.8rem; font-weight:800; transition:opacity .2s; display:flex; align-items:center; justify-content:center; gap:.35rem; }
-  .btn-copy:hover { opacity:.88; }
-  .btn-copy.copied { background:linear-gradient(135deg,var(--green),#16a34a); }
-
-  /* ── MODAL ── */
-  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.78); z-index:200; align-items:center; justify-content:center; padding:1rem; }
-  .modal-overlay.open { display:flex; }
-  .modal { background:var(--surface); border:1px solid var(--border); border-radius:18px; max-width:560px; width:100%; max-height:92vh; overflow-y:auto; padding:1.8rem; position:relative; }
-  .modal h2 { font-size:1.1rem; font-weight:800; margin-bottom:1.3rem; }
-  .modal-close { position:absolute; top:1rem; right:1rem; background:var(--card); border:1px solid var(--border); color:var(--muted); width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:.95rem; display:flex; align-items:center; justify-content:center; transition:all .2s; }
-  .modal-close:hover { border-color:var(--red); color:var(--red); }
-  .modal-section { margin-bottom:1.3rem; }
-  .modal-section h3 { font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.65rem; font-weight:800; }
-  .detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; }
-  .detail-item { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:.65rem .85rem; }
-  .detail-item .dk { font-size:.7rem; color:var(--muted); margin-bottom:.15rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
-  .detail-item .dv { font-size:.87rem; font-weight:700; }
-  .score-bd-row { display:flex; justify-content:space-between; align-items:center; padding:.38rem .65rem; background:var(--card); border:1px solid var(--border); border-radius:7px; font-size:.8rem; }
-  .score-bd-total { display:flex; justify-content:space-between; padding:.5rem .7rem; background:var(--card2); border:1px solid var(--border); border-radius:7px; font-size:.88rem; font-weight:800; margin-top:.35rem; }
-  .msg-box { background:var(--card); border:1px solid var(--border); border-radius:11px; padding:1.1rem; font-size:.84rem; line-height:1.8; color:var(--text); }
-  .btn-copy-msg { margin-top:.8rem; width:100%; background:linear-gradient(135deg,var(--accent),var(--accent2)); border:none; color:#fff; padding:.7rem; border-radius:9px; cursor:pointer; font-size:.9rem; font-weight:800; display:flex; align-items:center; justify-content:center; gap:.4rem; transition:opacity .2s; }
-  .btn-copy-msg:hover { opacity:.88; }
-
-  /* ── STEP INDICATOR BADGE ── */
-  .step-badge { display:inline-flex; align-items:center; gap:.4rem; font-size:.72rem; font-weight:700; padding:.2rem .7rem; border-radius:20px; background:var(--card2); border:1px solid var(--border); color:var(--muted); }
-  .step-badge.active { border-color:rgba(79,110,247,.4); color:var(--accent); background:rgba(79,110,247,.1); }
-
-  @media(max-width:700px){
-    .form-grid { grid-template-columns:1fr; }
-    .stats-bar { grid-template-columns:repeat(3,1fr); }
-    .pipeline { grid-template-columns:repeat(4,1fr); }
-    .pipeline .pipe-step:nth-child(n+5) { border-top:1px solid var(--border); }
-    .hero h1 { font-size:1.7rem; }
-  }
-</style>
+        @media(max-width:600px) { .form-grid { grid-template-columns: 1fr; } .pipeline { grid-template-columns: repeat(4, 1fr); } }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="logo">
-    <div class="logo-pulse"></div>
-    <span>ProspectAI</span>
-  </div>
-  <div class="nav-right">
-    <div class="nav-pill live">● LIVE</div>
-    <div class="nav-pill">7-Step Engine</div>
-  </div>
+    <div class="logo"><div class="logo-pulse"></div><span>ProspectAI</span></div>
+    <div class="nav-pill live">● API CONNECTED</div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">🔬 Real Business Intelligence &nbsp;·&nbsp; Qualified Leads Only</div>
-  <h1>🔎 Prospecção <span>Inteligente</span><br/>de Clientes Reais</h1>
-  <p>Motor de 7 etapas: validação, análise de oportunidade, enriquecimento de contato e scoring automático.</p>
+    <h1>🔎 Prospecção <span>Inteligente</span> Real</h1>
+    <p>Motor de análise em tempo real conectado ao Google Maps e Redes Sociais.</p>
 </div>
 
-<!-- PIPELINE VISUAL -->
 <div class="pipeline-wrap">
-  <div class="pipeline" id="pipeline-bar">
-    <div class="pipe-step" id="ps1"><div class="pipe-num">STEP 1</div><div class="pipe-icon">🔍</div><div class="pipe-label">Buscar<br/>Negócios</div></div>
-    <div class="pipe-step" id="ps2"><div class="pipe-num">STEP 2</div><div class="pipe-icon">✅</div><div class="pipe-label">Validar<br/>Existência</div></div>
-    <div class="pipe-step" id="ps3"><div class="pipe-num">STEP 3</div><div class="pipe-icon">🌐</div><div class="pipe-label">Analisar<br/>Site</div></div>
-    <div class="pipe-step" id="ps4"><div class="pipe-num">STEP 4</div><div class="pipe-icon">📸</div><div class="pipe-label">Instagram<br/>Discovery</div></div>
-    <div class="pipe-step" id="ps5"><div class="pipe-num">STEP 5</div><div class="pipe-icon">📞</div><div class="pipe-label">Enriquecer<br/>Contato</div></div>
-    <div class="pipe-step" id="ps6"><div class="pipe-num">STEP 6</div><div class="pipe-icon">🧮</div><div class="pipe-label">Lead<br/>Scoring</div></div>
-    <div class="pipe-step" id="ps7"><div class="pipe-num">STEP 7</div><div class="pipe-icon">📊</div><div class="pipe-label">Output<br/>Final</div></div>
-  </div>
+    <div class="pipeline" id="pipeline-bar">
+        <div class="pipe-step" id="ps1"><div class="pipe-num">1</div><div class="pipe-icon">🔍</div><div class="pipe-label">Busca</div></div>
+        <div class="pipe-step" id="ps2"><div class="pipe-num">2</div><div class="pipe-icon">✅</div><div class="pipe-label">Validar</div></div>
+        <div class="pipe-step" id="ps3"><div class="pipe-num">3</div><div class="pipe-icon">🌐</div><div class="pipe-label">Site</div></div>
+        <div class="pipe-step" id="ps4"><div class="pipe-num">4</div><div class="pipe-icon">📸</div><div class="pipe-label">Social</div></div>
+        <div class="pipe-step" id="ps5"><div class="pipe-num">5</div><div class="pipe-icon">📞</div><div class="pipe-label">Contato</div></div>
+        <div class="pipe-step" id="ps6"><div class="pipe-num">6</div><div class="pipe-icon">🧮</div><div class="pipe-label">Score</div></div>
+        <div class="pipe-step" id="ps7"><div class="pipe-num">7</div><div class="pipe-icon">📊</div><div class="pipe-label">Fim</div></div>
+    </div>
 </div>
 
-<!-- FORM -->
 <div class="form-wrap">
-  <div class="form-card">
-    <div class="form-title">⚙️ Configurar Prospecção</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>🌍 País</label>
-        <input id="inp-pais" type="text" placeholder="Ex: Brasil"/>
-      </div>
-      <div class="form-group">
-        <label>🏙️ Cidade</label>
-        <input id="inp-cidade" type="text" placeholder="Ex: São Paulo"/>
-      </div>
-      <div class="form-group">
-        <label>🏢 Nicho</label>
-        <input id="inp-nicho" type="text" placeholder="Ex: Clínicas, Restaurantes..."/>
-      </div>
+    <div class="form-card">
+        <div class="form-grid">
+            <div class="form-group"><label>🏙️ Cidade</label><input id="inp-cidade" type="text" placeholder="Ex: Rio de Janeiro"/></div>
+            <div class="form-group"><label>🏢 Nicho</label><input id="inp-nicho" type="text" placeholder="Ex: Academia, Dentista..."/></div>
+        </div>
+        <button class="btn-prospect" onclick="startProspecting()">🚀 Iniciar Motor de Busca Real</button>
     </div>
-    <button class="btn-prospect" onclick="startProspecting()">
-      🚀 Iniciar Motor de Prospecção
-    </button>
-  </div>
 </div>
 
-<!-- LOADING -->
 <div id="loading">
-  <div class="loading-card">
-    <div class="loading-header">
-      <div class="loading-spinner" id="main-spinner"></div>
-      <div>
-        <div class="loading-title" id="loading-title">Inicializando motor de prospecção...</div>
-        <div class="loading-sub" id="loading-sub">Preparando análise de <span id="ld-nicho">–</span> em <span id="ld-cidade">–</span></div>
-      </div>
+    <div class="loading-card">
+        <div class="prog-step" id="l1">🔍 Consultando base de dados do Google Maps...</div>
+        <div class="prog-step" id="l2">🌐 Analisando performance dos sites encontrados...</div>
+        <div class="prog-step" id="l3">📸 Verificando presença e atividade no Instagram...</div>
+        <div class="prog-step" id="l4">🧮 Aplicando algoritmos de Lead Scoring...</div>
     </div>
-    <div class="pipeline-progress" id="prog-steps">
-      <div class="prog-step pending" id="prog1">
-        <div class="prog-icon p" id="picon1">1</div>
-        <div class="prog-step-text">
-          <div class="prog-step-label">Buscar Negócios</div>
-          <div class="prog-step-desc">Google Maps + Yellow Pages + Yelp</div>
-        </div>
-        <div class="prog-count" id="pcnt1">—</div>
-      </div>
-      <div class="prog-step pending" id="prog2">
-        <div class="prog-icon p" id="picon2">2</div>
-        <div class="prog-step-text">
-          <div class="prog-step-label">Validação Básica</div>
-          <div class="prog-step-desc">Confirmar existência real e extrair dados</div>
-        </div>
-        <div class="prog-count" id="pcnt2">—</div>
-      </div>
-      <div class="prog-step pending" id="prog3">
-        <div class="prog-icon p" id="picon3">3</div>
-        <div class="prog-step-text">
-          <div class="prog-step-label">Análise de Site / Oportunidade</div>
-          <div class="prog-step-desc">Descartar LOW opportunity → focar em HIGH/VERY HIGH</div>
-        </div>
-        <div class="prog-count" id="pcnt3">—</div>
-      </div>
-      <div class="prog-step pending" id="prog4">
-        <div class="prog-icon p" id="picon4">4</div>
-        <div class="prog-step-text">
-          <div class="prog-step-label">Instagram Discovery</div>
-          <div class="prog-step-desc">Apenas para leads qualificados</div>
-        </div>
-        <div class="prog-count" id="pcnt4">—</div>
-      </div>
-      <div class="prog-step pending" id="prog5">
-        <div class="prog-icon p" id="picon5">5</div>
-        <div class="prog-step-text">
-          <div class="prog-step-label">Enriquecimento de Contato</div>
-          <div class="prog-step-desc">Telefone, WhatsApp, e-mail</div>
-        </div>
-        <div class="prog-count" id="pcnt5">—</div>
-      </div>
-      <div class="prog-step pending" id="prog6">
-        <div class="prog-icon p" id="picon6">6</div>
-        <div class="prog-step-text">
-          <div class="prog-step-label">Lead Scoring Engine</div>
-          <div class="prog-step-desc">+40 sem site · +30 site ruim · +20 IG ativo · Regra de Ouro</div>
-        </div>
-        <div class="prog-count" id="pcnt6">—</div>
-      </div>
-      <div class="prog-step pending" id="prog7">
-        <div class="prog-icon p" id="picon7">7</div>
-        <div class="prog-step-text">
-          <div class="prog-step-label">Output Final</div>
-          <div class="prog-step-desc">Estruturar leads qualificados</div>
-        </div>
-        <div class="prog-count" id="pcnt7">—</div>
-      </div>
-    </div>
-    <div class="prog-bar-wrap">
-      <div class="prog-bar-label">
-        <span id="prog-label-left">Aguardando...</span>
-        <span id="prog-pct">0%</span>
-      </div>
-      <div class="prog-bar"><div class="prog-bar-fill" id="prog-fill"></div></div>
-    </div>
-    <div class="discarded-note" id="discard-note" style="display:none">
-      ⚠️ <strong id="discard-count">0</strong> negócio(s) descartados — baixa oportunidade (site moderno + empresa estruturada).
-    </div>
-  </div>
 </div>
 
-<!-- RESULTS -->
 <div id="results">
-  <div class="filter-bar">
-    <span class="filter-label">Filtrar:</span>
-    <div class="divider"></div>
-    <button class="filter-btn hot"  onclick="filterLeads('hot',this)">🔥 Quentes</button>
-    <button class="filter-btn warm" onclick="filterLeads('warm',this)">🌤 Mornos</button>
-    <button class="filter-btn cold" onclick="filterLeads('cold',this)">❄ Frios</button>
-    <button class="filter-btn active" id="filter-all" onclick="filterLeads('all',this)">Todos</button>
-    <div class="filter-spacer"></div>
-    <button class="export-btn" onclick="exportLeads()">📥 Exportar CSV</button>
-  </div>
-  <div class="stats-bar" id="stats-bar"></div>
-  <div class="leads-grid" id="leads-grid"></div>
+    <div class="leads-grid" id="leads-grid"></div>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModalBtn()">✕</button>
-    <div id="modal-body"></div>
-  </div>
+    <div class="modal" id="modal-content"></div>
 </div>
 
 <script>
-'use strict';
-let allLeads = [];
-let discardedCount = 0;
+    let allLeads = [];
 
-// ══════════════════════════════════════════════
-//  HIGH-DEMAND NICHES (acelerador +20)
-// ══════════════════════════════════════════════
-const HIGH_DEMAND = [
-  'clínica','clinica','estética','estetica','beleza','odonto','dentist','saúde','saude','médico','medico',
-  'restaurante','comida','alimentação','alimentacao','lanchonete','pizzaria','café','cafe','bar','padaria',
-  'academia','fitness','gym','personal','treino','musculação','musculacao',
-  'advogado','advocacia','contabil','contador','imobiliária','imobiliaria'
-];
+    // LÓGICA DE SCORING REAL
+    function calculateScore(item) {
+        let score = 0;
+        let reasons = [];
 
-// ══════════════════════════════════════════════
-//  SCORING ENGINE (v3)
-// ══════════════════════════════════════════════
-function calcScore(sc, nicho) {
-  const n = nicho.toLowerCase();
-  let s = 0;
-  // BASE
-  if (!sc.hasWebsite)                              s += 40;
-  else if (sc.webDesign === 'Desatualizado')        s += 30;
-  if (sc.igActive)                                 s += 20;
-  if (sc.hasContact)                               s += 10;
-  if (sc.igEngagement === 'Alto')                  s += 10;
-  // PENALIDADES
-  if (sc.isLargeBiz)                               s -= 30;
-  if (sc.hasWebsite && sc.webDesign === 'Moderno') s -= 20;
-  if (!sc.igActive && sc.igFound)                  s -= 10;
-  // ACELERADORES
-  if (HIGH_DEMAND.some(k => n.includes(k)))        s += 20;
-  if (sc.isAdvertising)                            s += 15;
-  if (sc.manyFollowersNoSite)                      s += 10;
-  // REGRA DE OURO
-  if (!sc.hasWebsite && sc.igActive && s < 80)     s = 80;
-  return Math.min(100, Math.max(0, s));
-}
+        if (!item.website) { score += 40; reasons.push("Sem site (Oportunidade Máxima)"); }
+        else { score += 10; reasons.push("Possui site (Analisar UI/UX)"); }
 
-function getBreakdown(sc, nicho) {
-  const n = nicho.toLowerCase();
-  const r = [];
-  if (!sc.hasWebsite)                              r.push({ pts:+40, l:'Não tem site' });
-  else if (sc.webDesign==='Desatualizado')          r.push({ pts:+30, l:'Site desatualizado / ruim' });
-  if (sc.igActive)                                 r.push({ pts:+20, l:'Instagram ativo (post recente)' });
-  if (sc.hasContact)                               r.push({ pts:+10, l:'Tem contato (telefone / e-mail)' });
-  if (sc.igEngagement==='Alto')                    r.push({ pts:+10, l:'Bom engajamento no Instagram' });
-  if (sc.isLargeBiz)                               r.push({ pts:-30, l:'Empresa grande / estruturada' });
-  if (sc.hasWebsite && sc.webDesign==='Moderno')   r.push({ pts:-20, l:'Site moderno e bem feito' });
-  if (!sc.igActive && sc.igFound)                  r.push({ pts:-10, l:'Instagram encontrado mas inativo' });
-  if (HIGH_DEMAND.some(k=>n.includes(k)))          r.push({ pts:+20, l:'Nicho de alta demanda' });
-  if (sc.isAdvertising)                            r.push({ pts:+15, l:'Empresa anunciando (investe)' });
-  if (sc.manyFollowersNoSite)                      r.push({ pts:+10, l:'Muitos seguidores sem site' });
-  if (!sc.hasWebsite && sc.igActive)               r.push({ pts:0,   l:'⚡ Regra de Ouro → Hot Lead garantido' });
-  return r;
-}
+        if (item.phone) score += 20;
+        if (item.instagram) score += 15;
+        if (item.reviewsCount < 15) score += 25; // Poucas reviews = precisa de tráfego/SEO
 
-// ══════════════════════════════════════════════
-//  NICHE MESSAGES (PT-BR)
-// ══════════════════════════════════════════════
-function nicheKey(nicho) {
-  const n = nicho.toLowerCase();
-  if (['clínica','clinica','estética','estetica','odonto','dentist','saúde','saude','beleza','médico','medico'].some(k=>n.includes(k))) return 'saude';
-  if (['restaurante','comida','alimentação','alimentacao','lanchonete','pizzaria','café','cafe','bar','padaria'].some(k=>n.includes(k))) return 'food';
-  if (['academia','fitness','gym','personal','treino','musculação','musculacao'].some(k=>n.includes(k))) return 'fitness';
-  if (['imobiliária','imobiliaria','imóvel','imovel','corretor','aluguel'].some(k=>n.includes(k))) return 'imovel';
-  if (['advogado','advocacia'].some(k=>n.includes(k))) return 'juridico';
-  return 'generico';
-}
-
-const MSGS = {
-  saude: (n) =>
-`Olá, tudo bem? 😊
-
-Vi que vocês têm uma presença ativa no Instagram, mas ainda não possuem um site estruturado para conversão de novos pacientes.
-
-Hoje isso faz muita diferença para quem busca no Google. Posso te mostrar uma forma simples de aumentar seus agendamentos?`,
-
-  food: (n) =>
-`Fala, tudo bem? 👋
-
-Dei uma olhada no perfil de vocês e vi que o movimento no Instagram é bom, mas vocês ainda não têm um site próprio para pedidos ou reservas.
-
-Isso pode estar fazendo vocês perderem clientes todos os dias. Quer que eu te mostre uma solução rápida?`,
-
-  fitness: (n) =>
-`Olá! 💪
-
-Notei que vocês têm presença online, mas ainda não utilizam um site estratégico para captação de novos alunos.
-
-Hoje muita gente busca direto no Google antes de escolher. Posso te mostrar como resolver isso de forma simples?`,
-
-  imovel: (n) =>
-`Olá, tudo bem? 🏠
-
-Percebi que vocês anunciam imóveis, mas não possuem um site otimizado para captação de leads qualificados.
-
-Isso pode estar limitando bastante os contatos. Posso te mostrar como mudar isso rapidamente?`,
-
-  juridico: (n) =>
-`Olá! ⚖️
-
-Vi que o escritório ainda não possui um site profissional otimizado para captar clientes no Google.
-
-Clientes em potencial pesquisam antes de ligar. Posso te mostrar uma solução rápida e eficaz?`,
-
-  generico: (n) =>
-`Olá! 😊
-
-Estava analisando empresas da sua região e percebi que a *${n}* ainda não tem um site profissional para atrair clientes do Google.
-
-Hoje isso impacta diretamente nas vendas. Posso te mostrar uma ideia rápida?`
-};
-
-function getMsg(name, nicho) {
-  return MSGS[nicheKey(nicho)](name);
-}
-
-// ══════════════════════════════════════════════
-//  LEAD GENERATOR (7-step simulation)
-// ══════════════════════════════════════════════
-function buildLeads(pais, cidade, nicho) {
-  const P = ['Studio','Clínica','Espaço','Centro','Instituto','Casa','Prime','Boutique','Ateliê','Grupo'];
-  const M = ['Alpha','Bella','Nova','Max','Viva','Best','Gold','Zen','Arte','Top'];
-
-  // Raw business pool (Step 1 – 11 found)
-  const pool = [
-    // idx 0 — sem site + IG ativo + whats + anunciando + muitos seguidores → OURO
-    { hasWebsite:false, webDesign:null,          igFound:true,  igActive:true,  igFreq:'Alto',  igQual:'Alto',  igEngagement:'Alto',  hasContact:true,  phone:'(11) 99812-3456', email:'contato@example.com', whatsapp:true, isLargeBiz:false, isAdvertising:true,  manyFollowersNoSite:true,  sources:['gmaps','ig']   },
-    // idx 1 — sem site + IG ativo + whats
-    { hasWebsite:false, webDesign:null,          igFound:true,  igActive:true,  igFreq:'Médio', igQual:'Alto',  igEngagement:'Médio', hasContact:true,  phone:'(11) 98765-4321', email:null, whatsapp:true,  isLargeBiz:false, isAdvertising:false, manyFollowersNoSite:true,  sources:['gmaps']        },
-    // idx 2 — sem site + IG ativo sem whats
-    { hasWebsite:false, webDesign:null,          igFound:true,  igActive:true,  igFreq:'Alto',  igQual:'Médio', igEngagement:'Alto',  hasContact:true,  phone:'(11) 97654-3210', email:'info@example.com', whatsapp:false, isLargeBiz:false, isAdvertising:false, manyFollowersNoSite:false, sources:['gmaps','yelp'] },
-    // idx 3 — sem site + IG ativo + anunciando
-    { hasWebsite:false, webDesign:null,          igFound:true,  igActive:true,  igFreq:'Médio', igQual:'Médio', igEngagement:'Médio', hasContact:true,  phone:'(21) 98001-2222', email:null, whatsapp:true,  isLargeBiz:false, isAdvertising:true,  manyFollowersNoSite:false, sources:['gmaps']        },
-    // idx 4 — site desatualizado + IG ativo + anunciando + whats
-    { hasWebsite:true,  webDesign:'Desatualizado', igFound:true, igActive:true, igFreq:'Alto',  igQual:'Alto',  igEngagement:'Alto',  hasContact:true,  phone:'(11) 95555-6666', email:'admin@example.com', whatsapp:true, isLargeBiz:false, isAdvertising:true,  manyFollowersNoSite:false, sources:['gmaps','yp']  },
-    // idx 5 — site desatualizado + IG médio
-    { hasWebsite:true,  webDesign:'Desatualizado', igFound:true, igActive:true, igFreq:'Médio', igQual:'Médio', igEngagement:'Médio', hasContact:true,  phone:'(31) 93333-4444', email:null, whatsapp:true,  isLargeBiz:false, isAdvertising:false, manyFollowersNoSite:false, sources:['yp']           },
-    // idx 6 — site desatualizado + IG inativo
-    { hasWebsite:true,  webDesign:'Desatualizado', igFound:true, igActive:false, igFreq:'Baixo', igQual:'Baixo', igEngagement:'Baixo', hasContact:true, phone:'(41) 92222-1111', email:null, whatsapp:false, isLargeBiz:false, isAdvertising:false, manyFollowersNoSite:false, sources:['gmaps']        },
-    // idx 7 — sem site + IG parado
-    { hasWebsite:false, webDesign:null,          igFound:true,  igActive:false, igFreq:'Baixo', igQual:'Baixo', igEngagement:'Baixo', hasContact:true,  phone:'(51) 91111-0000', email:null, whatsapp:false, isLargeBiz:false, isAdvertising:false, manyFollowersNoSite:false, sources:['gmaps']        },
-    // idx 8 — site moderno + IG ativo → DESCARTADO
-    { hasWebsite:true,  webDesign:'Moderno',     igFound:true,  igActive:true,  igFreq:'Alto',  igQual:'Alto',  igEngagement:'Alto',  hasContact:true,  phone:'(11) 3000-1234', email:'rh@example.com', whatsapp:false, isLargeBiz:false, isAdvertising:true,  manyFollowersNoSite:false, sources:['gmaps'], discard:true },
-    // idx 9 — empresa grande + site moderno → DESCARTADO
-    { hasWebsite:true,  webDesign:'Moderno',     igFound:false, igActive:false, igFreq:'—',     igQual:'—',     igEngagement:'Baixo', hasContact:true,  phone:'(11) 3000-9999', email:null, whatsapp:false, isLargeBiz:true,  isAdvertising:false, manyFollowersNoSite:false, sources:['gmaps','yp'], discard:true },
-    // idx 10 — sem site + IG parado + sem contato → DESCARTADO (sem contato)
-    { hasWebsite:false, webDesign:null,          igFound:false, igActive:false, igFreq:'—',     igQual:'—',     igEngagement:'Baixo', hasContact:false, phone:null, email:null, whatsapp:false, isLargeBiz:false, isAdvertising:false, manyFollowersNoSite:false, sources:[], discard:true, discardReason:'Sem contato encontrado' },
-  ];
-
-  const igHandle = (name) => '@' + name.toLowerCase().replace(/[^a-z0-9]/g,'') + cidade.toLowerCase().replace(/[^a-z]/g,'').slice(0,3);
-
-  const qualified = [];
-  discardedCount = 0;
-
-  pool.forEach((sc, i) => {
-    const name = `${P[i % P.length]} ${M[i % M.length]}`;
-    const ig   = igHandle(name);
-
-    // STEP 3: discard low opportunity
-    if (sc.discard) { discardedCount++; return; }
-    // STEP 5: discard no contact
-    if (!sc.hasContact) { discardedCount++; return; }
-
-    const score = calcScore(sc, nicho);
-    const tier  = score >= 80 ? 'hot' : score >= 50 ? 'warm' : 'cold';
-    const opp   = !sc.hasWebsite ? 'MUITO ALTA'
-                : sc.webDesign === 'Desatualizado' ? 'ALTA' : 'MÉDIA';
-    const msg   = getMsg(name, nicho);
-    const bd    = getBreakdown(sc, nicho);
-
-    let insight = '';
-    if (!sc.hasWebsite && sc.igActive && sc.manyFollowersNoSite)
-      insight = `<strong>${name}</strong> tem forte presença no Instagram com muitos seguidores, mas <strong>zero presença no Google</strong>. Clientes que pesquisam o nicho nunca encontram esse negócio — <strong>fechamento imediato</strong>.`;
-    else if (!sc.hasWebsite && sc.igActive && sc.isAdvertising)
-      insight = `<strong>${name}</strong> já <strong>investe em anúncios</strong> com Instagram ativo, mas sem site. Está pagando para trazer tráfego sem destino — proposta resolve dor imediata.`;
-    else if (!sc.hasWebsite && sc.igActive)
-      insight = `<strong>${name}</strong> tem Instagram ativo mas <strong>não possui site</strong>. Invisível no Google. Regra de Ouro aplicada — Lead Quente automático.`;
-    else if (!sc.hasWebsite)
-      insight = `<strong>${name}</strong> não possui site e o Instagram está parado. Presença digital nula — oportunidade de estruturar tudo do zero.`;
-    else if (sc.webDesign==='Desatualizado' && sc.isAdvertising)
-      insight = `<strong>${name}</strong> investe em anúncios, mas o site desatualizado <strong>sabota as conversões</strong>. Já demonstrou disposição de investir — excelente abertura.`;
-    else if (sc.webDesign==='Desatualizado')
-      insight = `<strong>${name}</strong> possui site, mas design desatualizado prejudica credibilidade. Reformulação moderna gera interesse imediato.`;
-    else
-      insight = `<strong>${name}</strong> tem presença moderada. Menor prioridade para site, mas aberto para landing pages ou automação.`;
-
-    qualified.push({ name, cidade, pais, nicho, sc, score, tier, opp, msg, insight, bd, ig,
-      maps: `https://maps.google.com/?q=${encodeURIComponent(name+' '+cidade)}` });
-  });
-
-  return qualified.sort((a,b) => b.score - a.score);
-}
-
-// ══════════════════════════════════════════════
-//  LOADING ANIMATION (7 steps)
-// ══════════════════════════════════════════════
-function setStep(idx, state, count='') {
-  const el   = document.getElementById(`prog${idx}`);
-  const icon = document.getElementById(`picon${idx}`);
-  const cnt  = document.getElementById(`pcnt${idx}`);
-  el.className   = `prog-step ${state}`;
-  icon.className = `prog-icon ${state==='running'?'r':state==='done'?'d':state==='skip'?'s':'p'}`;
-  icon.textContent = state==='done'?'✓':state==='skip'?'✕':idx;
-  if (cnt && count) cnt.textContent = count;
-  // pipeline bar highlight
-  const ps = document.getElementById(`ps${idx}`);
-  if (ps) {
-    ps.classList.remove('active-step','done-step');
-    if (state==='running') ps.classList.add('active-step');
-    if (state==='done')    ps.classList.add('done-step');
-  }
-}
-
-function setProgress(pct, label) {
-  document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-pct').textContent  = pct + '%';
-  document.getElementById('prog-label-left').textContent = label;
-}
-
-function startProspecting() {
-  const pais   = document.getElementById('inp-pais').value.trim()   || 'Brasil';
-  const cidade = document.getElementById('inp-cidade').value.trim() || 'São Paulo';
-  const nicho  = document.getElementById('inp-nicho').value.trim()  || 'negócios locais';
-
-  document.getElementById('loading').style.display = 'block';
-  document.getElementById('results').style.display = 'none';
-  document.getElementById('ld-nicho').textContent  = nicho;
-  document.getElementById('ld-cidade').textContent = cidade;
-  document.getElementById('discard-note').style.display = 'none';
-
-  // reset all steps
-  for (let i=1;i<=7;i++) setStep(i,'pending');
-  setProgress(0,'Aguardando...');
-
-  const steps = [
-    { idx:1, prog:14,  label:'Buscando negócios no Google Maps e diretórios...', cnt:'11 encontrados', delay:900  },
-    { idx:2, prog:28,  label:'Validando existência e extraindo dados básicos...', cnt:'11 validados',   delay:800  },
-    { idx:3, prog:42,  label:'Analisando presença digital — descartando LOW...', cnt:'8 qualificados', delay:1000 },
-    { idx:4, prog:57,  label:'Buscando perfis no Instagram...', cnt:'8 analisados',  delay:900  },
-    { idx:5, prog:71,  label:'Enriquecendo dados de contato...', cnt:'8 com contato', delay:800  },
-    { idx:6, prog:85,  label:'Aplicando Lead Scoring Engine...', cnt:'8 scored',      delay:900  },
-    { idx:7, prog:100, label:'Estruturando output final...', cnt:'8 leads prontos',  delay:700  },
-  ];
-
-  let i = 0;
-  function run() {
-    if (i >= steps.length) {
-      setTimeout(() => {
-        document.getElementById('loading-title').textContent = '✅ Prospecção concluída!';
-        const leads = buildLeads(pais, cidade, nicho);
-        allLeads = leads;
-        if (discardedCount > 0) {
-          document.getElementById('discard-count').textContent = discardedCount;
-          document.getElementById('discard-note').style.display = 'block';
-        }
-        setTimeout(() => {
-          document.getElementById('loading').style.display = 'none';
-          renderResults();
-        }, 600);
-      }, 400);
-      return;
+        return { total: Math.min(100, score), breakdown: reasons };
     }
-    const s = steps[i];
-    if (i > 0) { setStep(steps[i-1].idx, 'done', steps[i-1].cnt); }
-    setStep(s.idx, 'running');
-    setProgress(s.prog, s.label);
-    document.getElementById('loading-title').textContent = s.label;
-    i++;
-    setTimeout(run, s.delay);
-  }
-  run();
-}
 
-// ══════════════════════════════════════════════
-//  RENDER
-// ══════════════════════════════════════════════
-function renderResults() {
-  document.getElementById('results').style.display = 'block';
-  renderStats();
-  renderGrid(allLeads);
-  window.scrollTo({ top: document.getElementById('results').offsetTop - 80, behavior:'smooth' });
-}
+    async function startProspecting() {
+        const cidade = document.getElementById('inp-cidade').value;
+        const nicho = document.getElementById('inp-nicho').value;
+        if(!cidade || !nicho) return alert("Por favor, preencha os campos.");
 
-function renderStats() {
-  const hot  = allLeads.filter(l=>l.tier==='hot').length;
-  const warm = allLeads.filter(l=>l.tier==='warm').length;
-  const cold = allLeads.filter(l=>l.tier==='cold').length;
-  document.getElementById('stats-bar').innerHTML = `
-    <div class="stat-card"><div class="num">${allLeads.length}</div><div class="lbl">Qualificados</div></div>
-    <div class="stat-card"><div class="num hot-num">🔥 ${hot}</div><div class="lbl">Quentes 80–100</div></div>
-    <div class="stat-card"><div class="num warm-num">🌤 ${warm}</div><div class="lbl">Mornos 50–79</div></div>
-    <div class="stat-card"><div class="num cold-num">❄ ${cold}</div><div class="lbl">Frios 0–49</div></div>
-    <div class="stat-card"><div class="num disc-num">${discardedCount}</div><div class="lbl">Descartados</div></div>
-  `;
-}
+        // Reset UI
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('results').style.display = 'none';
+        
+        try {
+            // Animação visual dos passos
+            updateStep(1, 'running');
+            const response = await fetch(`/api/search?nicho=${nicho}&cidade=${cidade}`);
+            const data = await response.json();
+            
+            updateStep(2, 'done');
+            updateStep(3, 'running');
+            
+            allLeads = data.map(item => {
+                const scoreData = calculateScore(item);
+                return {
+                    name: item.title,
+                    address: item.address,
+                    phone: item.phone,
+                    site: item.website,
+                    score: scoreData.total,
+                    reasons: scoreData.breakdown,
+                    tier: scoreData.total > 70 ? 'hot' : 'warm'
+                };
+            });
 
-function renderGrid(leads) {
-  const grid = document.getElementById('leads-grid');
-  if (!leads.length) { grid.innerHTML=`<div style="color:var(--muted);grid-column:1/-1;text-align:center;padding:2rem">Nenhum lead para este filtro.</div>`; return; }
-  grid.innerHTML = leads.map((l,i) => {
-    const tl = l.tier==='hot'?'🔥 Hot Lead':l.tier==='warm'?'🌤 Warm Lead':'❄ Cold Lead';
-    const fc = l.sc.igFreq==='Alto'?'good':l.sc.igFreq==='Médio'?'ok':'bad';
-    const ac = l.sc.igActive?'good':'bad';
-    const initial = l.name.charAt(0).toUpperCase();
+            updateStep(6, 'done');
+            updateStep(7, 'done');
+            
+            renderLeads();
+        } catch (error) {
+            alert("Erro ao buscar dados. Verifique sua chave API no Vercel.");
+            console.error(error);
+        } finally {
+            document.getElementById('loading').style.display = 'none';
+        }
+    }
 
-    const srcHTML = l.sc.sources.map(s => {
-      if (s==='gmaps') return `<span class="src-tag src-gmaps">📍 Google Maps</span>`;
-      if (s==='yelp')  return `<span class="src-tag src-yelp">⭐ Yelp</span>`;
-      if (s==='yp')    return `<span class="src-tag src-yp">📒 Yellow Pages</span>`;
-      if (s==='ig')    return `<span class="src-tag src-ig">📸 Instagram</span>`;
-      return '';
-    }).join('');
+    function updateStep(step, status) {
+        const el = document.getElementById(`ps${step}`);
+        const loadEl = document.getElementById(`l${Math.ceil(step/2)}`);
+        if(el) el.className = `pipe-step ${status === 'running' ? 'active-step' : 'done-step'}`;
+        if(loadEl && status === 'running') loadEl.className = 'prog-step running';
+        if(loadEl && status === 'done') loadEl.className = 'prog-step done';
+    }
 
-    const contactsHTML = [
-      l.sc.phone    ? `<span class="contact-chip phone">📞 ${l.sc.phone}</span>` : '',
-      l.sc.whatsapp ? `<span class="contact-chip phone">💬 WhatsApp</span>` : '',
-      l.sc.email    ? `<span class="contact-chip email">✉️ Email</span>` : '',
-    ].filter(Boolean).join('');
+    function renderLeads() {
+        const grid = document.getElementById('leads-grid');
+        document.getElementById('results').style.display = 'block';
+        
+        grid.innerHTML = allLeads.map((l, i) => `
+            <div class="lead-card">
+                <div class="card-accent" style="background: ${l.tier === 'hot' ? 'var(--hot)' : 'var(--warm)'}"></div>
+                <div class="card-body">
+                    <h3 style="margin-bottom:5px">${l.name}</h3>
+                    <p style="font-size:0.8rem; color:var(--muted); margin-bottom:10px">📍 ${l.address || 'Endereço não disponível'}</p>
+                    <p>📞 ${l.phone || 'Sem telefone'}</p>
+                    <p>🌐 ${l.site ? `<a href="${l.site}" target="_blank" style="color:var(--accent)">Acessar Site</a>` : '<span style="color:var(--red)">Sem Website</span>'}</p>
+                    <div style="margin-top:15px">
+                        <span class="score-num">${l.score}/100</span> Lead Score
+                    </div>
+                    <button class="btn-copy" onclick="copyLead(${i})">📋 Copiar Dados</button>
+                </div>
+            </div>
+        `).join('');
+    }
 
-    return `
-    <div class="lead-card" data-tier="${l.tier}">
-      <div class="card-accent-bar bar-${l.tier}"></div>
-      <div class="card-body">
-        <div class="card-header">
-          <div class="biz-avatar">${initial}</div>
-          <div class="biz-info">
-            <div class="biz-name">${l.name}</div>
-            <div class="biz-city">📍 ${l.cidade}, ${l.pais}</div>
-          </div>
-          <span class="badge badge-${l.tier}">${tl}</span>
-        </div>
-        <div class="source-row">${srcHTML || '<span class="src-tag" style="color:var(--muted)">Sem fonte</span>'}</div>
-        <div class="card-info">
-          <div class="info-row"><span class="lk">🌐</span> <span style="color:var(--muted);min-width:32px">Site:</span>
-            ${l.sc.hasWebsite ? `<span class="tag-yes">✅ ${l.sc.webDesign}</span>` : '<span class="tag-no">❌ Não possui</span>'}
-          </div>
-          <div class="info-row"><span class="lk">📸</span> <span style="color:var(--muted);min-width:32px">IG:</span>
-            ${l.sc.igFound ? `<a href="https://instagram.com/${l.ig.replace('@','')}" target="_blank">${l.ig}</a>` : '<span style="color:var(--muted)">Não encontrado</span>'}
-          </div>
-          <div class="info-row"><span class="lk">🎯</span> <span style="color:var(--muted);min-width:32px">Opp:</span> <b>${l.opp}</b></div>
-        </div>
-        <div class="contacts-row">${contactsHTML || '<span class="contact-chip">Sem contato</span>'}</div>
-        <div class="score-row">
-          <span class="score-label">Score</span>
-          <div class="score-track"><div class="score-fill fill-${l.tier}" style="width:${l.score}%"></div></div>
-          <span class="score-num" style="color:var(--${l.tier==='hot'?'hot':l.tier==='warm'?'warm':'cold'})">${l.score}/100</span>
-        </div>
-        <div class="signals-row">
-          <span class="sig-tag ${ac}">IG: ${l.sc.igActive?'✅ Ativo':'❌ Inativo'}</span>
-          <span class="sig-tag ${fc}">Posts: ${l.sc.igFreq}</span>
-          ${l.sc.hasContact?'<span class="sig-tag promo">📞 Contato</span>':''}
-          ${l.sc.isAdvertising?'<span class="sig-tag promo">📣 Anunciando</span>':''}
-        </div>
-        <div class="insight-box">${l.insight}</div>
-        <div class="card-actions">
-          <button class="btn-detail" onclick="openModal(${i})">🔍 Ver Detalhes</button>
-          <button class="btn-copy" id="cb-${i}" onclick="copyMsg(${i})">📋 Copiar Mensagem</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
+    function copyLead(i) {
+        const l = allLeads[i];
+        const text = `Lead: ${l.name}\nTelefone: ${l.phone}\nSite: ${l.site || 'Nenhum'}\nScore: ${l.score}`;
+        navigator.clipboard.writeText(text);
+        alert("Dados copiados!");
+    }
 
-function filterLeads(tier, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGrid(tier==='all' ? allLeads : allLeads.filter(l=>l.tier===tier));
-}
-
-function copyMsg(i) {
-  navigator.clipboard.writeText(allLeads[i].msg).then(() => {
-    const b = document.getElementById(`cb-${i}`);
-    b.textContent='✅ Copiado!'; b.classList.add('copied');
-    setTimeout(()=>{ b.innerHTML='📋 Copiar Mensagem'; b.classList.remove('copied'); }, 2000);
-  });
-}
-
-function openModal(i) {
-  const l  = allLeads[i];
-  const tc = `var(--${l.tier==='hot'?'hot':l.tier==='warm'?'warm':'cold'})`;
-  const tl = l.tier==='hot'?'🔥 Hot Lead':l.tier==='warm'?'🌤 Warm Lead':'❄ Cold Lead';
-
-  const bdHTML = l.bd.map(b => {
-    const z=b.pts===0, p=b.pts>0;
-    const c=z?'#a78bfa':p?'#22c55e':'#ef4444';
-    const lbl=z?'⚡':p?`+${b.pts}`:`${b.pts}`;
-    return `<div class="score-bd-row"><span>${b.l}</span><span style="font-weight:800;color:${c};min-width:40px;text-align:right">${lbl}</span></div>`;
-  }).join('');
-
-  const safe = l.msg.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
-  const contactBlock = [
-    l.sc.phone    ? `<div class="detail-item"><div class="dk">Telefone</div><div class="dv">${l.sc.phone}</div></div>` : '',
-    l.sc.whatsapp ? `<div class="detail-item"><div class="dk">WhatsApp</div><div class="dv">✅ Disponível</div></div>` : '',
-    l.sc.email    ? `<div class="detail-item"><div class="dk">E-mail</div><div class="dv">${l.sc.email}</div></div>` : '',
-  ].filter(Boolean).join('');
-
-  document.getElementById('modal-body').innerHTML = `
-    <h2>${l.name} &nbsp;<span class="badge badge-${l.tier}">${tl}</span></h2>
-
-    <div class="modal-section">
-      <h3>📊 Dados do Negócio</h3>
-      <div class="detail-grid">
-        <div class="detail-item"><div class="dk">Cidade</div><div class="dv">📍 ${l.cidade}</div></div>
-        <div class="detail-item"><div class="dk">Nicho</div><div class="dv">🏢 ${l.nicho}</div></div>
-        <div class="detail-item"><div class="dk">Lead Score</div><div class="dv" style="color:${tc}">${l.score}/100</div></div>
-        <div class="detail-item"><div class="dk">Oportunidade</div><div class="dv">${l.opp}</div></div>
-        <div class="detail-item"><div class="dk">Website</div><div class="dv">${l.sc.hasWebsite?`✅ ${l.sc.webDesign}`:'❌ Não possui'}</div></div>
-        <div class="detail-item"><div class="dk">Instagram</div><div class="dv">${l.sc.igFound?l.ig:'Não encontrado'}</div></div>
-        ${contactBlock}
-        <div class="detail-item"><div class="dk">Anunciando</div><div class="dv">${l.sc.isAdvertising?'📣 Sim':'—'}</div></div>
-      </div>
-    </div>
-
-    <div class="modal-section">
-      <h3>🧮 Detalhamento do Score</h3>
-      <div style="display:flex;flex-direction:column;gap:.35rem">${bdHTML}</div>
-      <div class="score-bd-total"><span>SCORE FINAL</span><span style="color:${tc}">${l.score} / 100</span></div>
-    </div>
-
-    <div class="modal-section">
-      <h3>🧠 Insight Estratégico</h3>
-      <div class="insight-box" style="font-size:.83rem">${l.insight}</div>
-    </div>
-
-    <div class="modal-section">
-      <h3>💬 Mensagem — WhatsApp / Instagram DM</h3>
-      <div class="msg-box">${l.msg.replace(/\n/g,'<br>')}</div>
-      <button class="btn-copy-msg" onclick="copyMsgModal('${safe}',this)">📋 Copiar Mensagem</button>
-    </div>
-  `;
-  document.getElementById('modal-overlay').classList.add('open');
-}
-
-function copyMsgModal(msg, btn) {
-  navigator.clipboard.writeText(msg.replace(/\\n/g,'\n')).then(()=>{
-    btn.textContent='✅ Mensagem Copiada!';
-    setTimeout(()=>{ btn.innerHTML='📋 Copiar Mensagem'; }, 2000);
-  });
-}
-
-function closeModal(e) { if (e.target===document.getElementById('modal-overlay')) closeModalBtn(); }
-function closeModalBtn() { document.getElementById('modal-overlay').classList.remove('open'); }
-
-function exportLeads() {
-  if (!allLeads.length) return;
-  const rows = [['Nome','Cidade','Nicho','Telefone','WhatsApp','Email','Instagram','Tem Site','Score','Classificação','Oportunidade','Fontes','Mensagem']];
-  allLeads.forEach(l => rows.push([
-    l.name, l.cidade, l.nicho,
-    l.sc.phone||'—', l.sc.whatsapp?'Sim':'Não', l.sc.email||'—', l.sc.igFound?l.ig:'—',
-    l.sc.hasWebsite?`Sim (${l.sc.webDesign})`:'Não', l.score,
-    l.tier==='hot'?'Hot Lead':l.tier==='warm'?'Warm Lead':'Cold Lead',
-    l.opp, l.sc.sources.join('+'), l.msg.replace(/\n/g,' ')
-  ]));
-  const csv  = rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
-  const a    = document.createElement('a');
-  a.href=URL.createObjectURL(blob); a.download='leads_qualificados.csv'; a.click();
-}
+    function closeModal(e) { if(e.target.id === 'modal-overlay') document.getElementById('modal-overlay').classList.remove('open'); }
 </script>
 </body>
 </html>
